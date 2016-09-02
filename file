@@ -1,0 +1,51 @@
+
+body
+{
+	background-color: rgb(255,240,220);
+}
+h2
+{
+	text-align:center;
+	opacity:0.5;
+}
+.parent
+{
+	position:relative;
+}
+.mainbox
+{
+	border-radius:5px;
+	display:inline-block;
+	margin:10px;
+	position:absolute;
+}
+.hvr-glow {
+border-radius:5px;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+  display: inline-block;
+  height:200px;
+  width:300px;
+  background-color:rgb(210,250,255);
+  margin:10px;
+}
+
+.hvr-glow-2{
+border-radius:5px;
+  background-color:rgb(210,250,255);
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+  height:300px;
+  width:625px;
+  margin:10px;
+}
+
+.hvr-glow-left{
+border-radius:5px;
+  width:500px;
+  height:600px;
+  background-color:rgb(210,250,255);
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+  display: inline-block;
+  position:absolute	;
+  margin-top:20px;
+  float:right;
+}

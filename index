@@ -1,0 +1,27 @@
+<html>
+<head>
+	<title>
+	Analytics Forrum
+	</title>
+	<link href="file.css" rel="stylesheet" media="all">
+</head>
+
+<body>
+<div class="parent">
+			<div class="mainbox">
+				<div class="hvr-glow">A
+				</div>
+
+				<div class="hvr-glow">B
+				</div>
+
+				<div class="hvr-glow-2">C
+				</div>			
+			</div>
+
+			<div class = "hvr-glow-left">
+			</div>	
+<div>
+<body>
+
+</html>
