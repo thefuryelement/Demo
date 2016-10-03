@@ -57,11 +57,11 @@ public class CompoundOp
 			{
 				if(sYear==eYear&&currMonth==maxMonth)
 				{
-					System.out.println("The current start date is :"+transactionStartDate.getTime());
-					System.out.println("Calculating compound value for :"+transactionStartDate.get(Calendar.DAY_OF_MONTH)+" days");
+					System.out.println("The current start date is :"+transactionEndDate.getTime());
+					System.out.println("Calculating compound value for :"+transactionEndDate.get(Calendar.DAY_OF_MONTH)+" days");
 					// to calculate the interest of the covered days of last month
-					principleAmount += principleAmount*rateOfInterest*transactionStartDate.get(Calendar.DAY_OF_MONTH)/annualNoDays*100;
-					
+					principleAmount += principleAmount*rateOfInterest*transactionEndDate.get(Calendar.DAY_OF_MONTH)/annualNoDays*100;
+					break;
 				}
 
 				transactionStartDate.set(2, currMonth);
@@ -72,7 +72,7 @@ public class CompoundOp
 			transactionStartDate.set(Calendar.MONTH,0);
 			maxMonth=11;
 		}
-
-		transactionStartDate.set(2, currMonth);
+		
+		System.out.println("The Principle is : "+principleAmount);
 	}
 }
