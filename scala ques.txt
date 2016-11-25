@@ -1,0 +1,10 @@
+1) Write a function to product that takes a string argument and returns product of Unicode codes for all letters. For example, "Cybage" is -1450212126
+The function product must use pattern matching and recursive and no use of vars.
+2) Write a procedure countdown which takes no and prints numbers from given number to 0 (no use of vars)
+3) Write a class having vals and vars with public, private, protected, private[<pkg>], private[this] access modifier and check output of javap
+4) Use the expression evaluator classes used in session and write following expressions
+	a) 1 + (-2)
+	b) 1+2 *3*3
+	c) -(1+2*3+2*4)
+	d) 2 * 4 + 3 * 4 + 5
+5) Add Subtraction and division operation to the expression evaluator
