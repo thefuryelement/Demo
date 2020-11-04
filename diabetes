@@ -1,0 +1,128 @@
+Task 2.a Build a Decision Tree (DT) classifier using the training dataset and evaluate the performance on the “testing” set. Repeat this experiment 10 time using a different random split in each iteration. Show the performance (i.e. accuracy, true positive rate and precision) for each iteration and the average of the 10 iterations for each measure
+
+from sklearn import tree
+from sklearn.metrics import accuracy_score
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import recall_score, precision_score
+
+# accuracy, precision and recall list
+acc_list, pr_list, re_list = [], [], []
+
+#
+X = dia_all[['preg', 'plas', 'pres', 'skin', 'insu', 'mass', 'pedi', 'age']].values.tolist()
+Y = pd.factorize(dia_all['class'])[0].tolist()
+
+for state in range(1,11):
+    #Creating test train with random state values
+    X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size=0.3, random_state=state)
+    clf = tree.DecisionTreeClassifier()
+    clf = clf.fit(X_train,Y_train)
+
+    #adding the accuracy, precion and recall value to list
+    acc_list.append(clf.score(X_test, Y_test))
+    pr_list.append(precision_score(clf.predict(X_test), Y_test))
+    re_list.append(recall_score(clf.predict(X_test), Y_test))
+
+#Summarizing into a dataframe
+summary_df = pd.DataFrame([acc_list, pr_list, re_list]).T
+summary_df.columns = ['accuracy', 'precision', 'recall']
+summary_df
+
+
+2.b Compare the performance of the experiment above when you change the criterion from Gini impurity (“gini”) to information gain (“entropy”). Repeat this experiment 10 time using a different random split in each iteration as in section in part (a).¶
+
+#list variables to store perfomance measures for gini as well as entropy criterion.
+gini_list = []
+gini_prlist = []
+gini_relist = []
+entropy_list = []
+entropy_prlist = []
+entropy_relist = []
+
+for state in range(1,11):
+    #following the same with 10 different states
+    X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size=0.3, random_state=state)
+ 
+    # GINI based decision tree
+    clf = tree.DecisionTreeClassifier( criterion='gini')
+    clf = clf.fit(X_train,Y_train)
+    #adding performance values to lists
+    gini_list.append(clf.score(X_test, Y_test))
+    gini_prlist.append(precision_score(clf.predict(X_test), Y_test))
+    gini_relist.append(recall_score(clf.predict(X_test), Y_test))
+    
+    #ENTROPY based decision tree
+    clf = tree.DecisionTreeClassifier( criterion='entropy')
+    clf = clf.fit(X_train,Y_train)
+    #adding performance values to lists
+    entropy_list.append(clf.score(X_test, Y_test))
+    entropy_prlist.append(precision_score(clf.predict(X_test), Y_test))
+    entropy_relist.append(recall_score(clf.predict(X_test), Y_test))
+    
+#Summarizing into a dataframe
+summary_df = pd.DataFrame([gini_list, gini_prlist, gini_relist, entropy_list, entropy_prlist, entropy_relist]).T
+summary_df.columns = ['gini_accuracy', 'gini_precision', 'gini_tpr', 'entropy_accuracy', 'entropy_precision', 'entropy_tpr']
+summary_df
+
+2.c. Compare the performance of the two classifiers (a) and (b) over the 10 repeats using a suitable chart¶
+
+#representation of performance indicaters for different iterations.
+summary_df.plot(kind='bar', figsize=(20,10))
+
+
+2.d Do you think standardizing the data before applying DT would improve the performance for this dataset? Why? (you are not expected to run any experiments for this question don’t write more than 150 words)¶
+
+#Tree based algorithms and logistic regressions do not change to the magnitude of the variable. Thus a standardization process is not relevant for such kind of model training.
+
+3.a How does increasing the minimum number of samples required to split an internal node parameter in the DT algorithm (i.e. min_samples_split = 2, 5, 10 and 15) affect the accuracy on the test set? Show your results using a suitable chart or table
+# accuracy, precision and recall list
+acc_list, pr_list, re_list = [], [], []
+
+min_samples_split_list = [2, 5, 10, 15]
+
+for sample_split in min_samples_split_list:
+    #clf = tree.DecisionTreeClassifier(criterion='gini', random_state=0, max_depth=3, min_samples_split=2)
+    X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size=0.3, random_state=0)
+    clf = tree.DecisionTreeClassifier(min_samples_split=sample_split)
+    clf = clf.fit(X_train,Y_train)
+    acc_list.append(clf.score(X_test, Y_test))
+
+summary_df = pd.DataFrame([min_samples_split_list, acc_list]).T
+summary_df.columns = ['splits', 'accuracy']
+summary_df.set_index('splits', inplace=True)
+summary_df
+
+# plotting the performance for different splits values
+summary_df.plot(kind='bar')
+
+3b. How does increasing the maximum depth of the decision tree parameter (i.e. max_depth = 3, 4, 5 and 6) affect the accuracy on the test set? Show your results using a suitable chart or table.¶
+
+# accuracy list
+acc_list = []
+
+max_depthlist =[3,4,5,6] 
+
+for depth in max_depthlist:
+    #clf = tree.DecisionTreeClassifier(criterion='gini', random_state=0, max_depth=3, min_samples_split=2)
+    X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size=0.3, random_state=0)
+    clf = tree.DecisionTreeClassifier(max_depth=depth)
+    clf = clf.fit(X_train,Y_train)
+    acc_list.append(clf.score(X_test, Y_test))
+
+summary_df = pd.DataFrame([max_depthlist, acc_list]).T
+summary_df.columns = ['depth', 'accuracy']
+summary_df.set_index('depth', inplace=True)
+summary_df
+
+# plotting the performance for different depth values
+summary_df.plot(kind='bar')
+
+
+
+
+
+
+
+
+
+
