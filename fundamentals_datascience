@@ -1,0 +1,11 @@
+1.5
+
+def replace_content(df, col, to_be_replaced, replacement):
+    df[col] = df[col].replace(to_be_replaced, replacement)
+    return df
+
+# perform here the replacements as instructed in the Question text   
+df = pd.read_csv(file_name, index_col='RespondentID')
+df = replace_content(df, 'Age', '&gt; 60','60+')
+df = replace_content(df, 'Lottery Type', 'Lottery A', 'risk yes')
+df = replace_content(df, 'Lottery Type', 'Lottery B', 'risk no')
