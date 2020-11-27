@@ -9,3 +9,18 @@ df = pd.read_csv(file_name, index_col='RespondentID')
 df = replace_content(df, 'Age', '&gt; 60','60+')
 df = replace_content(df, 'Lottery Type', 'Lottery A', 'risk yes')
 df = replace_content(df, 'Lottery Type', 'Lottery B', 'risk no')
+
+
+1.6
+
+def find_k_most_similar(df, seed_id, k):
+    base_record = df.loc[seed_id]
+    similar_scores = df.apply(lambda x: base_record.astype('str').eq(x.astype('str')).sum(), axis=1)
+    k_common_indexes = similar_scores.sort_values(ascending=False).iloc[0:k].index
+    return df.loc[k_common_indexes]
+
+find_k_most_similar(df,3234900937, 6).apply(lambda x: x.mode())
+
+1.7
+
+df[df['Lottery Type'].isna()].apply(lambda x: x.fillna(x.mode, inplace=True))
